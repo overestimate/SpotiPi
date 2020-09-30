@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SpotiPi</title>
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+      body {
+        background-color: #2f2f2f;
+      }
+      * {
+        color: #e0e0e0;
+        font-family: 'Roboto', sans-serif;
+      }
+  </style>
+</head>
+<body>
+  <center>
+  <h1>SpotiPi</h1>
+  <h2><span id="np">Now playing: No song</span></h2>
+  <div id="albumArt"></div>
+  </center>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script>
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const token = window.location.hash.substr(1);
+      const player = new Spotify.Player({
+        name: 'My SpotiPi',
+        getOAuthToken: cb => { cb(token); }
+      });
+
+      // Error handling
+      player.addListener('initialization_error', ({ message }) => { console.error(message); });
+      player.addListener('authentication_error', ({ message }) => { console.error(message); });
+      player.addListener('account_error', ({ message }) => { console.error(message); });
+      player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+      // Playback status updates
+      player.addListener('player_state_changed', ({
+  position,
+  duration,
+  track_window: { current_track }
+}) => { 
+        document.getElementById("np").innerHTML = "Now playing: " + current_track.name;
+        document.getElementById("album").innerHTML = "<img src=\"" + current_track.images[0].url + "\"></img>";
+      });
+    
+      // Ready
+      player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id);
+      });
+
+      // Not Ready
+      player.addListener('not_ready', ({ device_id }) => {
+        console.log('Device ID has gone offline', device_id);
+      });
+
+      // Connect to the player!
+      player.connect();
+    };
+  </script>
+</body>
+</html>
