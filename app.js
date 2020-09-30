@@ -109,5 +109,5 @@ app.get('/callback', function(req, res) {
   }
 });
 
-console.log('Listening on 80');
-app.listen(80);
+console.log('Listening on ' + process.env.PORT);
+app.listen(process.env.PORT);
