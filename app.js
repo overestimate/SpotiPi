@@ -30,7 +30,9 @@ var app = express();
 app.use(express.static(__dirname + '/web'))
    .use(cors())
    .use(cookieParser());
-
+app.get('/', function(req, res) {
+  res.redirect('/login');
+});
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
