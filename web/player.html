@@ -23,6 +23,10 @@
   <script>
     window.onSpotifyWebPlaybackSDKReady = () => {
       const token = window.location.hash.substr(1);
+      if (token.startsWith("error="))
+      {
+        document.getElementById("np").innerHTML = "Auth Error.";
+      }
       const player = new Spotify.Player({
         name: 'My SpotiPi',
         getOAuthToken: cb => { cb(token); }
