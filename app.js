@@ -98,7 +98,7 @@ app.get('/callback', function(req, res) {
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('/player.html#' +
-          access_token
+          access_token)
       } else {
         res.redirect('/player.html#' +
           querystring.stringify({
