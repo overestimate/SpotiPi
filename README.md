@@ -1,4 +1,5 @@
-# SpotiPi
+## SpotiPi
+# WARNING: HEROKU LINK IS DEAD. USING MY DYNO FOR A DISCORD BOT INSTEAD
 Spotify Connect player from a Raspberry Pi/web-enabled device. Features include: 
 
 - Playing music 
